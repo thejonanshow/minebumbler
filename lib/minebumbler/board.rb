@@ -66,4 +66,10 @@ class Minebumbler::Board
 
     cells_with_mines
   end
+
+  def raw
+    @cells.map do |row|
+      row.join(" ")
+    end.join("\n")
+  end
 end

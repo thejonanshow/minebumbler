@@ -3,4 +3,11 @@
 require "bundler/setup"
 require "minebumbler"
 
-Minebumbler.start(difficulty)
+if ARGV.first == "-d"
+  if ARGV.last.to_i > 0 && ARGV.last.to_i <= 10
+    Minebumbler.start(ARGV.last.to_i)
+  else
+    puts "Please select a difficulty between 1 and 10 like this:"
+    puts "$ minebuilder -d 7"
+  end
+end
