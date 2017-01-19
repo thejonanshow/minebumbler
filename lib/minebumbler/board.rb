@@ -68,8 +68,32 @@ class Minebumbler::Board
   end
 
   def raw
-    @cells.map do |row|
-      row.join(" ")
-    end.join("\n")
+    lines = header
+
+    cells.each_with_index do |row, index|
+      lines << (index + 1).to_s.rjust(3) + "  |" + row.join(" ")
+    end
+
+    lines
   end
+
+  def header
+    column_labels = ("a".."z").to_a.slice(0..cells.first.length - 1)
+    [ "      " + column_labels.join(" "), "     *" + ("-" * cells.first.length * 2) ]
+  end
+
+  def filtered
+    lines = header
+
+    cells.each_with_index do |row, index|
+      lines << (index + 1).to_s.rjust(3) + "  |" + filtered_row(row)
+    end
+
+    lines
+  end
+
+  def filtered_row(row)
+    ("%" * row.length).split(//).join(" ")
+  end
+
 end
